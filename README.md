@@ -4,7 +4,7 @@
 
 **A sleek, native-feeling Tampermonkey userscript that embeds intuitive watch buttons into IMDb movies, TV series, anime, and episode pages.**
 
-[![Version](https://img.shields.io/badge/version-1.0.1-f5c518.svg?style=flat-square)](https://github.com/infoxica/imdb-vidsrc/releases)
+[![Version](https://img.shields.io/badge/version-1.0.2-f5c518.svg?style=flat-square)](https://github.com/infoxica/imdb-vidsrc/releases)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-00485B.svg?style=flat-square&logo=tampermonkey)](https://www.tampermonkey.net/)
 [![Violentmonkey](https://img.shields.io/badge/Violentmonkey-Compatible-orange.svg?style=flat-square)](https://violentmonkey.github.io/)

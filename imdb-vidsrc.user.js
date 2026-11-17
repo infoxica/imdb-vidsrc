@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb - Watch on VidSrc
 // @namespace    https://github.com/infoxica/imdb-vidsrc
-// @version      1.0.1
+// @version      1.0.2
 // @description  Adds native IMDb-styled Watch buttons with episode/anime support, universal domain settings, and parallel viewport lazy-loading.
 // @author       infoxica
 // @match        https://www.imdb.com/*
@@ -23,7 +23,7 @@
     // -------------------------------------------------------------------------
     // CONFIGURATION & CONSTANTS
     // -------------------------------------------------------------------------
-    const SCRIPT_ID = 'imdb-vidsrc';
+    const SCRIPT_ID = 'imdb-vsrc';
     const CACHE_KEY_PREFIX = `${SCRIPT_ID}-cache-`;
     const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes cache
 
@@ -89,7 +89,8 @@
         }
 
         /* Title / Episode Page: Fixed Right-Top Action Group (Outside standard 1280px container) */
-        #imdb-vsrc-hero-group {
+        #imdb-vsrc-hero-group,
+        .imdb-vsrc-hero-group {
             position: fixed !important;
             top: 68px !important; /* Cleanly below IMDb fixed navbar (56px) */
             right: 24px !important; /* Aligned to right-top outside content */
@@ -106,7 +107,8 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
         }
 
-        #imdb-vsrc-hero-group:hover {
+        #imdb-vsrc-hero-group:hover,
+        .imdb-vsrc-hero-group:hover {
             border-color: rgba(245, 197, 24, 0.5) !important;
             box-shadow: 0 6px 24px rgba(0, 0, 0, 0.75) !important;
         }
@@ -641,6 +643,8 @@
         // Build Fixed Top-Right Hero Group (outside standard 1280px container, cleanly below navbar)
         const heroGroup = document.createElement('div');
         heroGroup.id = `${SCRIPT_ID}-hero-group`;
+        heroGroup.className = 'imdb-vsrc-hero-group';
+        heroGroup.style.cssText = 'position: fixed !important; top: 68px !important; right: 24px !important; z-index: 999999 !important; display: inline-flex !important; align-items: center !important; gap: 6px !important;';
 
         const heroBtn = document.createElement('a');
         heroBtn.id = `${SCRIPT_ID}-hero-btn`;
