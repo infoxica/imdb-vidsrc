@@ -6,6 +6,10 @@
 // @author       infoxica
 // @match        https://www.imdb.com/*
 // @icon         https://www.imdb.com/favicon.ico
+// @updateURL    https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js
+// @downloadURL  https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js
+// @supportURL   https://github.com/infoxica/imdb-vidsrc/issues
+// @homepageURL  https://github.com/infoxica/imdb-vidsrc
 // @grant        GM_xmlhttpRequest
 // @grant        GM_setValue
 // @grant        GM_getValue

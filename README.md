@@ -33,12 +33,12 @@
 
 Install a compatible userscript extension for your browser:
 
-| Browser | Recommended Extension |
-| :--- | :--- |
-| **Chrome / Brave / Edge** | [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) |
-| **Firefox** | [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) or [Violentmonkey](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/) |
-| **Safari (macOS / iOS)** | [Userscripts](https://github.com/quoid/userscripts) or [Stay](https://stayfork.app/) |
-| **Android** | [Firefox for Android](https://www.mozilla.org/firefox/browsers/mobile/android/) or [Kiwi Browser](https://kiwibrowser.com/) + Tampermonkey |
+| Browser                   | Recommended Extension                                                                                                                                          |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Chrome / Brave / Edge** | [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/)                                                             |
+| **Firefox**               | [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) or [Violentmonkey](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/) |
+| **Safari (macOS / iOS)**  | [Userscripts](https://github.com/quoid/userscripts) or [Stay](https://stayfork.app/)                                                                           |
+| **Android**               | [Firefox for Android](https://www.mozilla.org/firefox/browsers/mobile/android/) or [Kiwi Browser](https://kiwibrowser.com/) + Tampermonkey                     |
 
 ### 2. Install the Userscript
 
@@ -46,11 +46,11 @@ Click the button below to install:
 
 <div align="center">
 
-[![Install Userscript](https://img.shields.io/badge/⚡_Install_Userscript-imdb--vidsrc.user.js-f5c518?style=for-the-badge&logo=tampermonkey&logoColor=black)](https://raw.githubusercontent.com/infoxica/imdb-vidsrc/main/imdb-vidsrc.user.js)
+[![Install Userscript](https://img.shields.io/badge/⚡_Install_Userscript-imdb--vidsrc.user.js-f5c518?style=for-the-badge&logo=tampermonkey&logoColor=black)](https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js)
 
 </div>
 
-*Your userscript extension will open a prompt — click **Install** to confirm.*
+_Your userscript extension will open a prompt — click **Install** to confirm._
 
 ---
 
@@ -58,22 +58,22 @@ Click the button below to install:
 
 Once installed, visit IMDb as you normally would:
 
-| Page Type | Button | Action |
-| :--- | :--- | :--- |
-| **Movie Page** | `▶ Watch Now` | Opens the movie stream |
-| **TV Series Page** | `▶ Watch Series` | Opens the series player with episode selector |
-| **Episode Page** | `▶ Watch S{season} • E{episode}` | Streams the specific episode directly |
-| **Season Episodes List** | `▶ Watch S{season} • E{episode}` | Injected beside each episode in the list |
-| **Top 250 / Lists / Charts** | `▶ Watch` | Added to each title card for quick access |
+| Page Type                    | Button                           | Action                                        |
+| :--------------------------- | :------------------------------- | :-------------------------------------------- |
+| **Movie Page**               | `▶ Watch Now`                    | Opens the movie stream                        |
+| **TV Series Page**           | `▶ Watch Series`                 | Opens the series player with episode selector |
+| **Episode Page**             | `▶ Watch S{season} • E{episode}` | Streams the specific episode directly         |
+| **Season Episodes List**     | `▶ Watch S{season} • E{episode}` | Injected beside each episode in the list      |
+| **Top 250 / Lists / Charts** | `▶ Watch`                        | Added to each title card for quick access     |
 
 ### Availability Status
 
-| Status | Indicator | Meaning |
-| :--- | :---: | :--- |
-| **Available** | 🟢 | Ready to stream (reported quality shown on hover) |
-| **Checking** | 🟠 | Verifying stream status |
-| **Unavailable** | 🔴 | Title or episode is not currently indexed on the server |
-| **Ready** | ⚪ | Direct link ready |
+| Status          | Indicator | Meaning                                                 |
+| :-------------- | :-------: | :------------------------------------------------------ |
+| **Available**   |    🟢     | Ready to stream (reported quality shown on hover)       |
+| **Checking**    |    🟠     | Verifying stream status                                 |
+| **Unavailable** |    🔴     | Title or episode is not currently indexed on the server |
+| **Ready**       |    ⚪     | Direct link ready                                       |
 
 ---
 
@@ -82,6 +82,7 @@ Once installed, visit IMDb as you normally would:
 To change your preferred streaming mirror, click the **Settings (`⚙`)** icon next to the Watch button, or select **"⚙ Configure VidSrc Domain"** from your userscript extension menu.
 
 Pre-configured options include:
+
 - `vidsrc.sh` (Default / Recommended)
 - `vidsrc2.ru` (Fast Mirror)
 - `vidsrc.ir` (Alternative Mirror)
@@ -93,13 +94,13 @@ Your preference is saved automatically across all pages and sessions.
 
 ## 🌐 Browser Support
 
-| Browser | Extension | Status |
-| :--- | :--- | :---: |
+| Browser                      | Extension                    |    Status    |
+| :--------------------------- | :--------------------------- | :----------: |
 | **Google Chrome / Chromium** | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Mozilla Firefox** | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Microsoft Edge** | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Brave Browser** | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Apple Safari** | Userscripts / Stay | ✅ Supported |
+| **Mozilla Firefox**          | Tampermonkey / Violentmonkey | ✅ Supported |
+| **Microsoft Edge**           | Tampermonkey / Violentmonkey | ✅ Supported |
+| **Brave Browser**            | Tampermonkey / Violentmonkey | ✅ Supported |
+| **Apple Safari**             | Userscripts / Stay           | ✅ Supported |
 | **Android (Kiwi / Firefox)** | Tampermonkey / Violentmonkey | ✅ Supported |
 
 ---
