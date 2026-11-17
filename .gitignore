@@ -1,0 +1,13 @@
+# Context & temporary files (do not commit)
+history.md
+scratch/
+*.log
+
+# Environment & editor files
+.gemini/
+.system_generated/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+node_modules/
