@@ -25,9 +25,10 @@
 
 ### 📺 Full TV Series, Anime & Episode Support
 - **Episode-Level Precision**: Supports individual episode pages (e.g. `https://www.imdb.com/title/tt2301451/` — *Breaking Bad: Ozymandias S5·E14*).
+- **Season Episodes Lists**: Injects Watch buttons into each episode card on season listings (e.g. `https://www.imdb.com/title/tt0388629/episodes/?season=1`).
 - **Automatic Hierarchy Extraction**: Inspects JSON-LD, `__NEXT_DATA__`, and breadcrumb trees to resolve parent series ID, season number, and episode number.
 - **Universal Routing**: Routes to `/embed/tv/{seriesId}/{season}/{episode}` for episodes, `/embed/tv/{seriesId}` for TV shows, and `/embed/movie/{id}` for movies.
-- **Anime Ready**: Full support for anime series (*Attack on Titan*, *Arcane*, *Frieren*) and anime films (*Spirited Away*, *Your Name*).
+- **Anime Ready**: Full support for anime series (*One Piece*, *Attack on Titan*, *Arcane*, *Frieren*) and anime films (*Spirited Away*, *Your Name*).
 
 ### 🌐 Universal Domain Management
 - **Set Once, Works Everywhere**: Configure your preferred VidSrc mirror once. Your preference is saved universally across all IMDb pages and sessions.

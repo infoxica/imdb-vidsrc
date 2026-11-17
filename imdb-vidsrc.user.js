@@ -166,39 +166,35 @@
             color: #f5c518 !important;
         }
 
-        /* High-Visibility Card Button (Lists, Charts & Search - Matches "Mark as watched") */
+        /* High-Visibility Card & Episode Button (Matches IMDb's "Mark as watched") */
         .imdb-vsrc-card-btn {
             display: inline-flex !important;
             align-items: center !important;
-            justify-content: center !important;
             gap: 6px !important;
-            background-color: #252525 !important;
-            color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.28) !important;
-            border-radius: 9999px !important;
-            padding: 6px 14px !important;
-            font-size: 13px !important;
-            font-weight: 600 !important;
-            line-height: 18px !important;
             margin: 4px 6px 4px 0 !important;
             vertical-align: middle !important;
             white-space: nowrap !important;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
-            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease !important;
             text-decoration: none !important;
+            cursor: pointer !important;
+            box-sizing: border-box !important;
+        }
+
+        .imdb-vsrc-card-btn .ipc-btn__icon--pre {
+            display: inline-flex !important;
+            align-items: center !important;
+            color: #f5c518 !important; /* Yellow vector Play Icon */
+            flex-shrink: 0 !important;
+            margin-right: 4px !important;
+        }
+
+        .imdb-vsrc-card-btn .ipc-btn__text {
+            white-space: nowrap !important;
+            font-weight: 600 !important;
         }
 
         .imdb-vsrc-card-btn:hover {
-            background-color: #383838 !important;
             border-color: #f5c518 !important;
-            color: #f5c518 !important;
             transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
-        }
-
-        .imdb-vsrc-card-btn svg {
-            color: #f5c518 !important;
-            flex-shrink: 0;
         }
 
         /* Status Dot Indicator */
@@ -700,6 +696,8 @@
     // -------------------------------------------------------------------------
     // LISTS & CHARTS: VIEWPORT LAZY-LOADING WITH INTERSECTION OBSERVER
     // -------------------------------------------------------------------------
+    const NATIVE_BTN_CLASSES = 'ipc-btn ipc-btn--half-padding ipc-btn--left-align-content ipc-btn--default-height ipc-btn--core-base ipc-btn--theme-base ipc-btn--button-radius ipc-btn--on-accent2 ipc-text-button';
+
     let cardObserver = null;
 
     function initCardObserver() {
@@ -715,7 +713,10 @@
                     const meta = {
                         id: btn.dataset.id,
                         type: btn.dataset.type || 'movie',
-                        isEpisode: false
+                        isEpisode: btn.dataset.isEpisode === 'true',
+                        seriesId: btn.dataset.seriesId || null,
+                        season: btn.dataset.season ? parseInt(btn.dataset.season, 10) : null,
+                        episode: btn.dataset.episode ? parseInt(btn.dataset.episode, 10) : null
                     };
                     const domain = getDomain();
 
@@ -782,12 +783,12 @@
             );
 
             // Inherit native button classes from reference button if present
-            const nativeClasses = watchedBtn ? watchedBtn.className : 'ipc-btn ipc-btn--single-padding ipc-btn--default-height ipc-btn--core-base ipc-btn--theme-base';
+            const nativeClasses = (watchedBtn && watchedBtn.className) ? watchedBtn.className : NATIVE_BTN_CLASSES;
             btn.className = `${nativeClasses} imdb-vsrc-btn imdb-vsrc-card-btn ${SCRIPT_ID}-card-btn`;
 
             btn.innerHTML = `
-                ${ICONS.playSmall}
-                <span style="white-space: nowrap !important;">Watch</span>
+                <span class="ipc-btn__icon ipc-btn__icon--pre">${ICONS.playSmall}</span>
+                <span class="ipc-btn__text">Watch</span>
                 <span class="imdb-vsrc-status-dot checking" title="Checking..."></span>
             `;
 
@@ -798,6 +799,126 @@
                     card.querySelector('.ipc-metadata-list-summary-item__tc') ||
                     card.querySelector('[data-testid="title-list-item"]') ||
                     card.querySelector('.lister-item-content') ||
+                    card;
+                targetArea.appendChild(btn);
+            }
+
+            // Lazy check availability when scrolled into view
+            cardObserver.observe(btn);
+        });
+    }
+
+    // -------------------------------------------------------------------------
+    // EPISODES LIST PAGE: EPISODE-LEVEL BUTTONS (/title/tt.../episodes/)
+    // -------------------------------------------------------------------------
+    function processEpisodesPage(seriesId) {
+        initCardObserver();
+
+        const currentDomain = getDomain();
+        const episodeCards = document.querySelectorAll(
+            'article.episode-item-wrapper, ' +
+            '[data-testid^="episodes-card"], ' +
+            '[data-testid^="episode-card"], ' +
+            '.eplist .list_item, ' +
+            '.episode-item-wrapper'
+        );
+
+        // Extract season from URL if present (e.g. ?season=2)
+        const paramSeason = new URLSearchParams(window.location.search).get('season');
+        const defaultSeason = (paramSeason && /^\d+$/.test(paramSeason)) ? parseInt(paramSeason, 10) : 1;
+
+        episodeCards.forEach((card, index) => {
+            const epLink = card.querySelector('a[href*="/title/tt"]');
+            if (!epLink) return;
+
+            const match = epLink.href.match(/\/title\/(tt\d+)/);
+            if (!match) return;
+            const epId = match[1];
+
+            // Prevent duplicate buttons on same card
+            if (card.querySelector(`.${SCRIPT_ID}-ep-btn[data-id="${epId}"]`)) return;
+            if (card.querySelector(`.${SCRIPT_ID}-ep-btn`)) return;
+
+            const cardText = card.innerText || '';
+
+            // Extract Season & Episode numbers
+            let seasonNum = defaultSeason;
+            let epNum = null;
+
+            // Pattern: S1. E1, S1, Ep1, S01.E05, S1 E1
+            const seMatch = cardText.match(/S(\d+)\s*[\.·\s,]\s*E(?:p)?(\d+)/i);
+            if (seMatch) {
+                seasonNum = parseInt(seMatch[1], 10);
+                epNum = parseInt(seMatch[2], 10);
+            } else {
+                // Tracking ref like ?ref_=ttep_ep1
+                const refMatch = epLink.href.match(/ttep_ep(\d+)/i);
+                if (refMatch) {
+                    epNum = parseInt(refMatch[1], 10);
+                } else {
+                    const epMatch = cardText.match(/Episode\s*#?(\d+)|Ep\.?\s*(\d+)/i);
+                    if (epMatch) {
+                        epNum = parseInt(epMatch[1] || epMatch[2], 10);
+                    } else {
+                        epNum = index + 1;
+                    }
+                }
+            }
+
+            const meta = {
+                id: epId,
+                type: 'tv',
+                isEpisode: true,
+                seriesId: seriesId,
+                season: seasonNum,
+                episode: epNum
+            };
+
+            const embedUrl = buildEmbedUrl(meta, currentDomain);
+
+            const btn = document.createElement('a');
+            btn.href = embedUrl;
+            btn.target = '_blank';
+            btn.rel = 'noopener noreferrer';
+            btn.dataset.id = epId;
+            btn.dataset.type = 'tv';
+            btn.dataset.isEpisode = 'true';
+            btn.dataset.seriesId = seriesId;
+            btn.dataset.season = String(seasonNum);
+            if (epNum != null) btn.dataset.episode = String(epNum);
+
+            // Locate "Mark as watched" button
+            const actionControls = Array.from(card.querySelectorAll('button, a, [role="button"]'));
+            const watchedBtn = actionControls.find((el) =>
+                /mark as watched/i.test(el.innerText || '') ||
+                /mark.*watched/i.test(el.getAttribute('aria-label') || '') ||
+                /watched/i.test(el.getAttribute('title') || '')
+            );
+
+            const nativeClasses = (watchedBtn && watchedBtn.className) ? watchedBtn.className : NATIVE_BTN_CLASSES;
+            btn.className = `${nativeClasses} imdb-vsrc-btn imdb-vsrc-card-btn ${SCRIPT_ID}-card-btn ${SCRIPT_ID}-ep-btn`;
+
+            let label = 'Watch';
+            if (seasonNum != null && epNum != null) {
+                label = `Watch S${seasonNum} • E${epNum}`;
+            } else if (epNum != null) {
+                label = `Watch E${epNum}`;
+            }
+
+            btn.innerHTML = `
+                <span class="ipc-btn__icon ipc-btn__icon--pre">${ICONS.playSmall}</span>
+                <span class="ipc-btn__text">${label}</span>
+                <span class="imdb-vsrc-status-dot checking" title="Checking..."></span>
+            `;
+
+            if (watchedBtn) {
+                watchedBtn.insertAdjacentElement('afterend', btn);
+            } else {
+                const targetArea =
+                    card.querySelector('.ipc-metadata-list-summary-item__tc') ||
+                    card.querySelector('[data-testid="episode-card-content"]') ||
+                    card.querySelector('.ipl-rating-widget') ||
+                    card.querySelector('.info') ||
                     card;
                 targetArea.appendChild(btn);
             }
@@ -891,7 +1012,12 @@
             memoryCache.clear();
             sessionStorage.clear();
             renderTitlePage();
-            processListCards();
+            const epMatch = window.location.pathname.match(/\/title\/(tt\d+)\/episodes/);
+            if (epMatch) {
+                processEpisodesPage(epMatch[1]);
+            } else {
+                processListCards();
+            }
         });
     }
 
@@ -903,10 +1029,21 @@
     function handleDomUpdate() {
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
-            if (window.location.pathname.startsWith('/title/')) {
+            const path = window.location.pathname;
+
+            if (path.includes('/episodes')) {
+                // TV / Anime Series Episodes List Page (e.g. /title/tt0388629/episodes/)
+                const m = path.match(/\/title\/(tt\d+)/);
+                if (m) {
+                    renderTitlePage();
+                    processEpisodesPage(m[1]);
+                }
+            } else if (path.startsWith('/title/')) {
                 renderTitlePage();
+                processListCards();
+            } else {
+                processListCards();
             }
-            processListCards();
         }, 200);
     }
 
