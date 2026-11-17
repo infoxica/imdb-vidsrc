@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussion / Questions
+    url: https://github.com/infoxica/imdb-vidsrc/discussions
+    about: Ask questions, share feedback, or discuss ideas here.
+  - name: 📖 FAQ & Documentation
+    url: https://github.com/infoxica/imdb-vidsrc#faq
+    about: Check the README FAQ before opening an issue.
+  - name: 🌐 VidSrc Status
+    url: https://vidsrc.sh
+    about: Check if VidSrc itself is down before reporting stream issues.

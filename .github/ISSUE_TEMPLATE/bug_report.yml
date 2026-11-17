@@ -1,0 +1,140 @@
+name: 🐛 Bug Report
+description: Report a bug or broken behavior in the script.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug! Please fill in as much detail as possible so we can reproduce and fix it quickly.
+
+  - type: input
+    id: imdb_url
+    attributes:
+      label: IMDb URL
+      description: The exact IMDb page URL where the bug occurs.
+      placeholder: "https://www.imdb.com/title/tt0068646/"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: page_type
+    attributes:
+      label: Page Type
+      description: What type of page were you on?
+      options:
+        - Movie title page
+        - TV Series title page
+        - TV Episode title page
+        - Anime title page
+        - Episodes list page (/episodes/)
+        - IMDb chart / list page (e.g. Top 250)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: "The Watch Now button doesn't appear on..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to https://www.imdb.com/title/...
+        2. Scroll to...
+        3. Click on...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened? (Screenshots welcome — drag & drop them here)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser
+      options:
+        - Chrome
+        - Firefox
+        - Edge
+        - Brave
+        - Safari
+        - Other
+    validations:
+      required: true
+
+  - type: dropdown
+    id: userscript_manager
+    attributes:
+      label: Userscript Manager
+      options:
+        - Tampermonkey
+        - Violentmonkey
+        - Greasemonkey
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: script_version
+    attributes:
+      label: Script Version
+      description: Check the version in your userscript manager dashboard.
+      placeholder: "1.0.3"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: vidsrc_domain
+    attributes:
+      label: VidSrc Domain In Use
+      options:
+        - vidsrc.sh (default)
+        - vidsrc2.ru
+        - vidsrc.ir
+        - Custom domain
+    validations:
+      required: false
+
+  - type: textarea
+    id: console_errors
+    attributes:
+      label: Console Errors (if any)
+      description: Open DevTools (F12 → Console) and paste any red errors here.
+      render: shell
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have checked the [FAQ](https://github.com/infoxica/imdb-vidsrc#faq) and existing issues.
+          required: true
+        - label: I am using the latest version of the script.
+          required: true
+        - label: I have checked that VidSrc itself is accessible at https://vidsrc.sh.
+          required: true

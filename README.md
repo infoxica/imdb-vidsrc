@@ -1,116 +1,202 @@
 <div align="center">
 
-# 🎬 IMDb - Watch on VidSrc
+# IMDb × VidSrc
 
-**Stream any movie, TV show, anime, or episode directly from IMDb with a single click.**
+**Watch any movie or TV show directly from IMDb — one click, no fuss.**
 
-[![Version](https://img.shields.io/badge/version-1.0.2-f5c518.svg?style=flat-square)](https://github.com/infoxica/imdb-vidsrc/releases)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
-[![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-00485B.svg?style=flat-square&logo=tampermonkey)](https://www.tampermonkey.net/)
-[![Violentmonkey](https://img.shields.io/badge/Violentmonkey-Compatible-orange.svg?style=flat-square)](https://violentmonkey.github.io/)
+A lightweight userscript that injects native-styled **Watch** buttons into every IMDb page — title pages, episode lists, charts, and watchlists — linking instantly to free streams via [VidSrc](https://vidsrc.sh).
 
-[Install](#-installation) • [Features](#-features) • [Configuration](#-mirror-configuration) • [Compatibility](#-browser-support) • [License](#-license)
-
-</div>
-
----
-
-## ✨ Features
-
-- **One-Click Playback**: Adds clean, intuitive **Watch** buttons across IMDb title pages, episode guides, top charts, and search results.
-- **Native Look & Feel**: Designed to blend naturally with IMDb's dark UI theme and button styling.
-- **Full Episode Support**: Works seamlessly on individual episode pages and season listings, taking you straight to the exact season and episode.
-- **Anime & Movies**: Supports all movies, TV series, anime films, and ongoing shows indexed on IMDb.
-- **Live Stream Availability**: Displays a subtle status indicator showing whether the title is ready to play along with reported video quality (e.g. 1080p).
-- **Custom Mirrors & Proxies**: Easily switch between working VidSrc mirrors or enter your own custom endpoint anytime.
-- **Fast & Lightweight**: Built with smart lazy-loading so scrolling through IMDb Top 250 and long lists remains smooth and lag-free.
-
----
-
-## 🚀 Installation
-
-### 1. Install a Userscript Manager
-
-Install a compatible userscript extension for your browser:
-
-| Browser                   | Recommended Extension                                                                                                                                          |
-| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Chrome / Brave / Edge** | [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/)                                                             |
-| **Firefox**               | [Tampermonkey](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/) or [Violentmonkey](https://addons.mozilla.org/en-US/firefox/addon/violentmonkey/) |
-| **Safari (macOS / iOS)**  | [Userscripts](https://github.com/quoid/userscripts) or [Stay](https://stayfork.app/)                                                                           |
-| **Android**               | [Firefox for Android](https://www.mozilla.org/firefox/browsers/mobile/android/) or [Kiwi Browser](https://kiwibrowser.com/) + Tampermonkey                     |
-
-### 2. Install the Userscript
-
-Click the button below to install:
-
-<div align="center">
-
-[![Install Userscript](https://img.shields.io/badge/⚡_Install_Userscript-imdb--vidsrc.user.js-f5c518?style=for-the-badge&logo=tampermonkey&logoColor=black)](https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js)
+[![Install](https://img.shields.io/badge/Install%20Script-Tampermonkey-00485b?style=for-the-badge&logo=tampermonkey)](https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js)
+[![Version](https://img.shields.io/github/v/release/infoxica/imdb-vidsrc?style=for-the-badge&color=f5c518&label=Version)](https://github.com/infoxica/imdb-vidsrc/releases/latest)
+[![License](https://img.shields.io/github/license/infoxica/imdb-vidsrc?style=for-the-badge)](LICENSE)
+[![Issues](https://img.shields.io/github/issues/infoxica/imdb-vidsrc?style=for-the-badge)](https://github.com/infoxica/imdb-vidsrc/issues)
 
 </div>
 
-_Your userscript extension will open a prompt — click **Install** to confirm._
+---
+
+## ✨ What It Does
+
+Browse IMDb the way you always have — the script quietly adds **Watch** buttons that feel like they were always there.
+
+| Where you are | What you get |
+|---|---|
+| Movie page | ▶ **Watch Now** button (top-right, fixed) |
+| TV series page | ▶ **Watch Series** button |
+| Episode page | ▶ **Watch S2 • E5** button |
+| Episodes list (`/episodes/`) | ▶ **Watch S1 • E1** button on every episode card |
+| Top 250, Watchlist, any list | ▶ **Watch** button beside each title |
+
+Each button shows a live **availability dot** (🟢 available / 🔴 unavailable / 🟡 unknown) checked in the background — only for titles currently visible on screen.
 
 ---
 
-## 🎯 How It Works
+## 📸 Screenshots
 
-Once installed, visit IMDb as you normally would:
+<!-- Screenshots are taken from live IMDb pages with the script active -->
 
-| Page Type                    | Button                           | Action                                        |
-| :--------------------------- | :------------------------------- | :-------------------------------------------- |
-| **Movie Page**               | `▶ Watch Now`                    | Opens the movie stream                        |
-| **TV Series Page**           | `▶ Watch Series`                 | Opens the series player with episode selector |
-| **Episode Page**             | `▶ Watch S{season} • E{episode}` | Streams the specific episode directly         |
-| **Season Episodes List**     | `▶ Watch S{season} • E{episode}` | Injected beside each episode in the list      |
-| **Top 250 / Lists / Charts** | `▶ Watch`                        | Added to each title card for quick access     |
+| Movie Title Page | TV Series Page |
+|---|---|
+| ![Movie title page](screenshots/movie-title.png) | ![TV series page](screenshots/tv-series.png) |
 
-### Availability Status
-
-| Status          | Indicator | Meaning                                                 |
-| :-------------- | :-------: | :------------------------------------------------------ |
-| **Available**   |    🟢     | Ready to stream (reported quality shown on hover)       |
-| **Checking**    |    🟠     | Verifying stream status                                 |
-| **Unavailable** |    🔴     | Title or episode is not currently indexed on the server |
-| **Ready**       |    ⚪     | Direct link ready                                       |
+| Episodes List | IMDb Top 250 |
+|---|---|
+| ![Episodes list](screenshots/episodes-list.png) | ![Top 250 chart](screenshots/top-chart.png) |
 
 ---
 
-## ⚙️ Mirror Configuration
+## 🗂️ Content Coverage
 
-To change your preferred streaming mirror, click the **Settings (`⚙`)** icon next to the Watch button, or select **"⚙ Configure VidSrc Domain"** from your userscript extension menu.
+Powered by **VidSrc** — one of the largest open streaming index networks:
 
-Pre-configured options include:
+| Metric | Coverage |
+|---|---|
+| 🎬 Movies indexed | **50,000+** |
+| 📺 TV shows & anime | **10,000+** |
+| 🎞️ Stream quality | Up to **1080p** |
+| 🌍 Mirrors available | 3 built-in + custom |
+| 🔄 Catalog updates | Continuously |
 
-- `vidsrc.sh` (Default / Recommended)
-- `vidsrc2.ru` (Fast Mirror)
-- `vidsrc.ir` (Alternative Mirror)
-- **Custom Domain** (Use your own mirror or proxy)
-
-Your preference is saved automatically across all pages and sessions.
-
----
-
-## 🌐 Browser Support
-
-| Browser                      | Extension                    |    Status    |
-| :--------------------------- | :--------------------------- | :----------: |
-| **Google Chrome / Chromium** | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Mozilla Firefox**          | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Microsoft Edge**           | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Brave Browser**            | Tampermonkey / Violentmonkey | ✅ Supported |
-| **Apple Safari**             | Userscripts / Stay           | ✅ Supported |
-| **Android (Kiwi / Firefox)** | Tampermonkey / Violentmonkey | ✅ Supported |
+> VidSrc aggregates streams from across the web and indexes them by IMDb ID — the same ID IMDb already shows you. No searching required.
 
 ---
 
-## ⚖️ Disclaimer
+## ⚙️ Installation
 
-This userscript is an open-source project intended for educational and personal convenience purposes only. It does not host, store, stream, or distribute any media files or copyrighted content. All links are dynamically generated to point to third-party services. The author does not endorse or take responsibility for content provided by external websites.
+### Step 1 — Install a userscript manager
+
+| Browser | Recommended manager |
+|---|---|
+| Chrome / Edge / Brave | [Tampermonkey](https://www.tampermonkey.net/) |
+| Firefox | [Violentmonkey](https://violentmonkey.github.io/) or [Tampermonkey](https://www.tampermonkey.net/) |
+| Safari | [Userscripts](https://apps.apple.com/app/userscripts/id1463298887) |
+
+### Step 2 — Install the script
+
+Click the button below — your userscript manager will open an install dialog.
+
+[![Install IMDb VidSrc](https://img.shields.io/badge/%E2%96%B6%20Install%20Now-IMDb%20%C3%97%20VidSrc-f5c518?style=for-the-badge&logo=tampermonkey&logoColor=000)](https://raw.githubusercontent.com/infoxica/imdb-vidsrc/master/imdb-vidsrc.user.js)
+
+### Step 3 — Go to any IMDb page
+
+Navigate to [imdb.com](https://www.imdb.com) and you're done. Buttons appear automatically.
+
+> **Auto-updates** — The script updates itself whenever a new version is released. No manual reinstall needed.
+
+---
+
+## 🎯 Features
+
+### 🎬 Works everywhere on IMDb
+- Movie and TV title pages
+- Anime series and episodes
+- `/episodes/` season pages with per-episode buttons
+- Charts: Top 250, Most Popular, Box Office
+- Personal watchlists and custom lists
+
+### 🎨 Native IMDb design
+Buttons use IMDb's own CSS classes and design tokens — the same style as the "Mark as Watched" button. They look and feel like a first-party feature, not a plugin.
+
+### ⚡ Smart lazy-loading
+On list and chart pages, availability is checked **only for titles visible on screen**, in parallel, using `IntersectionObserver`. Scrolling down triggers checks for newly visible items — no bulk API hammering.
+
+### 🌐 Universal domain selector
+One setting, applied everywhere. Click the ⚙ gear icon beside any Watch Now button (or use the userscript manager menu) to switch between:
+- `vidsrc.sh` *(recommended)*
+- `vidsrc2.ru` *(fast mirror)*
+- `vidsrc.ir` *(alternative mirror)*
+- Any custom domain / proxy
+
+### 🔵 Live availability dots
+Each button shows a small dot indicating stream status — checked once per session and cached for 30 minutes to avoid unnecessary requests.
+
+### 🔄 SPA-aware
+IMDb is a single-page application. The script watches for navigation events and re-renders buttons when you move between pages without a full reload.
+
+---
+
+## 🎮 Usage
+
+### Watching a movie
+1. Open any IMDb movie page (e.g. [The Dark Knight](https://www.imdb.com/title/tt0468569/))
+2. Click **▶ Watch Now** in the top-right corner
+3. The stream opens in a new tab
+
+### Watching a TV series
+1. Open an IMDb TV series page (e.g. [Breaking Bad](https://www.imdb.com/title/tt0903747/))
+2. Click **▶ Watch Series** — goes to S1 E1 by default
+3. Use VidSrc's built-in episode selector to navigate episodes
+
+### Watching specific episodes
+1. Open the episodes page (e.g. `.../episodes/?season=2`)
+2. Each episode card shows **▶ Watch S2 • E1**, **▶ Watch S2 • E2**, etc.
+3. Click the button on the episode you want
+
+### Switching VidSrc mirror
+1. Click the **⚙** (gear) button beside any Watch Now button
+2. Select a domain from the list, or enter a custom one
+3. Click **Save & Apply** — takes effect everywhere immediately
+
+---
+
+## ❓ FAQ
+
+**Does this work for anime?**  
+Yes. Anime is treated as a TV series on IMDb (e.g. `tt6673774` = One Piece). Episode-level buttons work on anime season pages.
+
+**Which browsers are supported?**  
+Any browser that supports Tampermonkey or Violentmonkey: Chrome, Firefox, Edge, Brave, Opera, and Safari.
+
+**Is the stream quality good?**  
+VidSrc indexes streams up to 1080p. Quality depends on what's available for each title. The availability dot turns green when a stream is found.
+
+**A title shows a red dot — does that mean it won't play?**  
+The dot reflects what VidSrc's index API reports. Occasionally a title is indexed but streams have changed. Try clicking through anyway, or switch to a different VidSrc mirror.
+
+**How do I switch VidSrc mirrors?**  
+Click the ⚙ gear button beside any Watch Now button, pick a domain, and save. The setting applies to all pages globally.
+
+**Does this script collect any data?**  
+No. The script runs entirely in your browser. It makes anonymous requests to VidSrc APIs to check availability — no personal data, no accounts, no tracking.
+
+**Will this break if IMDb updates its UI?**  
+Possibly, since it depends on IMDb's DOM structure. If buttons stop appearing after an IMDb update, [open an issue](https://github.com/infoxica/imdb-vidsrc/issues) and it'll be fixed promptly.
+
+**How do I update the script?**  
+If you have auto-update enabled in Tampermonkey/Violentmonkey (the default), it updates automatically. You can also manually click "Check for updates" in the userscript manager dashboard.
+
+**Can I add a domain that isn't in the list?**  
+Yes — in the domain settings modal, choose "Custom Domain / Proxy" and enter any `vidsrc`-compatible domain.
+
+**Does it work with Greasemonkey?**  
+Partial support. `GM_getValue` / `GM_setValue` for domain storage requires Greasemonkey 4+. Tampermonkey or Violentmonkey recommended for the best experience.
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature requests are welcome!
+
+- 🐛 [Report a bug](https://github.com/infoxica/imdb-vidsrc/issues/new?template=bug_report.yml)
+- ✨ [Request a feature](https://github.com/infoxica/imdb-vidsrc/issues/new?template=feature_request.yml)
+- 📖 [Contributing guide](CONTRIBUTING.md)
+
+---
+
+## 📋 Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for the full version history.
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+[MIT](LICENSE) © [infoxica](https://github.com/infoxica) & Contributors
+
+---
+
+<div align="center">
+
+**If this saves you time, consider starring ⭐ the repo.**
+
+</div>

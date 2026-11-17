@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         IMDb - Watch on VidSrc
 // @namespace    https://github.com/infoxica/imdb-vidsrc
-// @version      1.0.2
+// @version      1.0.3
 // @description  Adds native IMDb-styled Watch buttons with episode/anime support, universal domain settings, and parallel viewport lazy-loading.
 // @author       infoxica
 // @match        https://www.imdb.com/*
@@ -96,13 +96,13 @@
         #imdb-vsrc-hero-group,
         .imdb-vsrc-hero-group {
             position: fixed !important;
-            top: 68px !important; /* Cleanly below IMDb fixed navbar (56px) */
-            right: 24px !important; /* Aligned to right-top outside content */
-            z-index: 999999 !important;
+            top: 72px !important; /* Cleanly below IMDb fixed navbar (~56px) + safe buffer */
+            right: 16px !important; /* Aligned right, away from search bar */
+            z-index: 9999 !important; /* Below IMDb's nav (10000+) so it sits under it, not inside */
             display: inline-flex !important;
             align-items: center !important;
             gap: 6px !important;
-            background: rgba(18, 18, 18, 0.92) !important;
+            background: rgba(18, 18, 18, 0.95) !important;
             backdrop-filter: blur(8px) !important;
             -webkit-backdrop-filter: blur(8px) !important;
             padding: 5px 6px !important;
@@ -644,7 +644,7 @@
         const heroGroup = document.createElement('div');
         heroGroup.id = `${SCRIPT_ID}-hero-group`;
         heroGroup.className = 'imdb-vsrc-hero-group';
-        heroGroup.style.cssText = 'position: fixed !important; top: 68px !important; right: 24px !important; z-index: 999999 !important; display: inline-flex !important; align-items: center !important; gap: 6px !important;';
+        heroGroup.style.cssText = 'position: fixed !important; top: 72px !important; right: 16px !important; z-index: 9999 !important; display: inline-flex !important; align-items: center !important; gap: 6px !important;';
 
         const heroBtn = document.createElement('a');
         heroBtn.id = `${SCRIPT_ID}-hero-btn`;
